@@ -1,0 +1,27 @@
+{
+  "name": "seneca",
+  "title": "SENECA",
+  "description": "IMEC custom development platform (SENECA)",
+  "homepage": "https://www.imec.nl",
+  "keywords": [
+      "dev-platform",
+      "seneca",
+      "RISC-V"
+  ],
+  "engines": {
+    "platformio": "^6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.imec.be/seneca/platform-seneca.git"
+  },
+  "version": "0.0.0",
+  "packages": {
+    "toolchain-riscv": {
+      "type": "toolchain",
+      "owner": "platformio",
+      "version": "~1.80300.0"
+    }
+  }
+}
+

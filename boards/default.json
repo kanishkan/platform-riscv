@@ -1,0 +1,13 @@
+{
+  "build": {
+    "extra_flags": "",
+    "f_cpu": "100000000L",
+    "mabi": "ilp32",
+    "march": "rv32imc",
+    "mcmodel": "medany"
+  },
+  "frameworks": ["riscv-sdk"],
+  "vendor" : "test",
+  "url" : "test.nl",
+  "name": "Seneca default target"
+}
