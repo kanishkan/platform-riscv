@@ -1,26 +1,22 @@
 {
-  "name": "seneca",
-  "title": "SENECA",
-  "description": "IMEC custom development platform (SENECA)",
+  "name": "riscv",
+  "title": "RISCV try",
+  "description": "RISCV custom development platform",
   "homepage": "https://www.imec.nl",
   "keywords": [
-      "dev-platform",
       "seneca",
       "RISC-V"
   ],
-  "engines": {
-    "platformio": "^6"
-  },
   "repository": {
     "type": "git",
-    "url": "https://github.imec.be/seneca/platform-seneca.git"
+    "url": "https://github.com/kanishkan/platform-riscv"
   },
   "version": "0.0.0",
   "packages": {
-    "toolchain-riscv": {
+    "toolchain-riscv-pulp": {
       "type": "toolchain",
       "owner": "platformio",
-      "version": "~1.80300.0"
+      "version": "~1.70101.0"
     }
   }
 }

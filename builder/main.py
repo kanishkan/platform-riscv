@@ -71,10 +71,6 @@ env.Append(
     )
 )
 
-pioframework = env.get("PIOFRAMEWORK", [])
-if not pioframework:
-    env.SConscript("frameworks/_bare.py", exports="env")
-
 #
 # Target: Build executable and linkable firmware
 #
