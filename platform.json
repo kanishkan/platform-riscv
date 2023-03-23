@@ -13,10 +13,9 @@
   },
   "version": "0.0.0",
   "packages": {
-    "toolchain-riscv-pulp": {
+    "toolchain-ibex": {
       "type": "toolchain",
-      "owner": "platformio",
-      "version": "~1.70101.0"
+      "version": "10.2.0"
     }
   }
 }

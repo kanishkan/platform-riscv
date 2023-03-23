@@ -27,7 +27,7 @@ board_config = env.BoardConfig()
 
 env.Replace(
     AR="riscv32-unknown-elf-gcc-ar",
-    AS="riscv32-unknown-elf-as",
+    AS="riscv32-unknown-elf-gcc",
     CC="riscv32-unknown-elf-gcc",
     GDB="riscv32-unknown-elf-gdb",
     CXX="riscv32-unknown-elf-g++",
@@ -46,7 +46,25 @@ env.Replace(
 if env.get("PROGNAME", "program") == "program":
     env.Replace(PROGNAME="firmware")
 
+machine_flags = [
+    "-march=%s" % board_config.get("build.march"),
+    "-mabi=%s" % board_config.get("build.mabi"),
+    "-MMD",
+    "-Wall",
+    "-fvisibility=hidden",
+    "-nostdlib",
+    "-nostartfiles",
+    "-ffreestanding",
+    "-static",
+    "-mcmodel=%s" % board_config.get("build.mcmodel"),
+]
+
 env.Append(
+    ASFLAGS=machine_flags,
+    APPFLAGS=[],
+    CCFLAGS=machine_flags,
+    LINKFLAGS=machine_flags,
+    LIBS=[],
     BUILDERS=dict(
         ElfToHex=Builder(
             action=env.VerboseAction(" ".join([
@@ -71,6 +89,8 @@ env.Append(
     )
 )
 
+if not board_config.get("build.ldscript", ""):
+    env.Replace(LDSCRIPT_PATH="link.ld")
 #
 # Target: Build executable and linkable firmware
 #
