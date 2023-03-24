@@ -5,6 +5,16 @@
     "march": "rv32imc",
     "mcmodel": "medany"
   },
+  "memmap": {
+      "sim_ctrl_base": "0x20000",
+      "sim_ctrl_out": "0x0",
+      "sim_ctrl_ctrl": "0x8",
+      "timer_base": "0x30000",
+      "timer_mtime": "0x0",
+      "timer_mtimeh": "0x4",
+      "timer_mtimecmp": "0x8",
+      "timer_mtimecmph": "0xc"
+  },
   "name": "My Test Board",
   "upload": {
     "maximum_ram_size": 2048,

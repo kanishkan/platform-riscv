@@ -46,6 +46,17 @@ env.Replace(
 if env.get("PROGNAME", "program") == "program":
     env.Replace(PROGNAME="firmware")
 
+mem_map = [
+    "-DSIM_CTRL_BASE=%s" % board_config.get("memmap.sim_ctrl_base"),
+    "-DSIM_CTRL_OUT=%s" % board_config.get("memmap.sim_ctrl_out"),
+    "-DSIM_CTRL_CTRL=%s" % board_config.get("memmap.sim_ctrl_ctrl"),
+    "-DTIMER_BASE=%s" % board_config.get("memmap.timer_base"),
+    "-DTIMER_MTIME=%s" % board_config.get("memmap.timer_mtime"),
+    "-DTIMER_MTIMEH=%s" % board_config.get("memmap.timer_mtimeh"),
+    "-DTIMER_MTIMECMP=%s" % board_config.get("memmap.timer_mtimecmp"),
+    "-DTIMER_MTIMECMPH=%s" % board_config.get("memmap.timer_mtimecmph"),
+]
+
 machine_flags = [
     "-march=%s" % board_config.get("build.march"),
     "-mabi=%s" % board_config.get("build.mabi"),
@@ -57,7 +68,7 @@ machine_flags = [
     "-ffreestanding",
     "-static",
     "-mcmodel=%s" % board_config.get("build.mcmodel"),
-]
+] + mem_map
 
 env.Append(
     ASFLAGS=machine_flags,
