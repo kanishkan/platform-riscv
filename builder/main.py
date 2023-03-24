@@ -68,12 +68,13 @@ machine_flags = [
     "-ffreestanding",
     "-static",
     "-mcmodel=%s" % board_config.get("build.mcmodel"),
-] + mem_map
+]
+compile_flags = machine_flags + mem_map
 
 env.Append(
-    ASFLAGS=machine_flags,
+    ASFLAGS=compile_flags,
     APPFLAGS=[],
-    CCFLAGS=machine_flags,
+    CCFLAGS=compile_flags,
     LINKFLAGS=machine_flags,
     LIBS=[],
     BUILDERS=dict(
@@ -109,13 +110,13 @@ if not board_config.get("build.ldscript", ""):
 target_elf = None
 if "nobuild" in COMMAND_LINE_TARGETS:
     target_elf = join("$BUILD_DIR", "${PROGNAME}.elf")
-    target_hex = join("$BUILD_DIR", "${PROGNAME}.hex")
+    target_bin = join("$BUILD_DIR", "${PROGNAME}.bin")
 else:
     target_elf = env.BuildProgram()
-    target_hex = env.ElfToHex(join("$BUILD_DIR", "${PROGNAME}"), target_elf)
+    target_bin = env.ElfToBin(join("$BUILD_DIR", "${PROGNAME}"), target_elf)
 
-AlwaysBuild(env.Alias("nobuild", target_hex))
-target_buildprog = env.Alias("buildprog", target_hex, target_hex)
+AlwaysBuild(env.Alias("nobuild", target_bin))
+target_buildprog = env.Alias("buildprog", target_bin, target_bin)
 
 env.AddPostAction(
     target_elf, env.VerboseAction(generate_disassembly, "Generating disassembly")

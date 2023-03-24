@@ -10,14 +10,14 @@ MEMORY
    BRAM space. Configuration below is for maximum BRAM capacity with Artya A7-35 while letting
    CoreMark run (.vmem of 152.8KB).
 */
-    ram         : ORIGIN = 0x00100000, LENGTH = 0x30000 /* 192 kB */
-    stack       : ORIGIN = 0x00130000, LENGTH = 0x8000  /* 32 kB */
+    iram (rx)  : ORIGIN = 0x00100000, LENGTH = 0x30000 /* 192 kB */
+    dmem (rwx) : ORIGIN = 0x00130000, LENGTH = 0x8000  /* 32 kB */
 }
 
 /* Stack information variables */
 _min_stack      = 0x2000;   /* 8K - minimum stack space to reserve */
-_stack_len     = LENGTH(stack);
-_stack_start   = ORIGIN(stack) + LENGTH(stack);
+_stack_len     = LENGTH(dmem);
+_stack_start   = ORIGIN(dmem) + LENGTH(dmem);
 
 _entry_point = _vectors_start + 0x80;
 ENTRY(_entry_point)
@@ -40,13 +40,13 @@ SECTIONS
 		_vectors_start = .;
         KEEP(*(.vectors))
 		_vectors_end = .;
-    } > ram
+    } > iram
 
     .text : {
         . = ALIGN(4);
         *(.text)
         *(.text.*)
-    }  > ram
+    }  > iram
 
     .rodata : {
         . = ALIGN(4);
@@ -55,7 +55,7 @@ SECTIONS
         *(.srodata.*)
         *(.rodata);
         *(.rodata.*)
-    } > ram
+    } > dmem
 
     .data : {
         . = ALIGN(4);
@@ -64,7 +64,7 @@ SECTIONS
         *(.sdata.*)
         *(.data);
         *(.data.*)
-    } > ram
+    } > dmem
 
     .bss :
     {
@@ -77,7 +77,7 @@ SECTIONS
         *(.bss.*)
         *(COMMON)
         _bss_end = .;
-    } > ram
+    } > dmem
 
     /* ensure there is enough room for stack */
     .stack (NOLOAD): {
@@ -86,5 +86,5 @@ SECTIONS
         . = ALIGN(4);
         stack = . ;
         _stack = . ;
-    } > stack
+    } > dmem
 }

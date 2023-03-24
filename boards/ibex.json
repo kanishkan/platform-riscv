@@ -17,8 +17,8 @@
   },
   "name": "My Test Board",
   "upload": {
-    "maximum_ram_size": 2048,
-    "maximum_size": 32256
+    "maximum_ram_size": 196608,
+    "maximum_size": 32768
   },
   "url": "http://example.com",
   "vendor": "MyCompany"
